@@ -8,6 +8,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       title: 'Invitee',
       theme: ThemeData.light(),
+      debugShowCheckedModeBanner: false,
     ).modular();
   }
 }
