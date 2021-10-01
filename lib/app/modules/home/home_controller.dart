@@ -10,11 +10,10 @@ abstract class _HomeController with Store {
   _HomeController(this.repository);
 
   @observable
-  List listRooms = [];
+  List dataRooms = [];
 
   @action
-  Future<void> fetchRooms() async {
-    final rooms = await repository.fetch();
-    listRooms = rooms;
+  Future<void> fetchAllRooms() async {
+    dataRooms = await repository.fetch();
   }
 }

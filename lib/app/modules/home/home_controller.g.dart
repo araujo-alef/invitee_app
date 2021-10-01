@@ -9,32 +9,33 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeController, Store {
-  final _$listRoomsAtom = Atom(name: '_HomeController.listRooms');
+  final _$dataRoomsAtom = Atom(name: '_HomeController.dataRooms');
 
   @override
-  List<dynamic> get listRooms {
-    _$listRoomsAtom.reportRead();
-    return super.listRooms;
+  List<dynamic> get dataRooms {
+    _$dataRoomsAtom.reportRead();
+    return super.dataRooms;
   }
 
   @override
-  set listRooms(List<dynamic> value) {
-    _$listRoomsAtom.reportWrite(value, super.listRooms, () {
-      super.listRooms = value;
+  set dataRooms(List<dynamic> value) {
+    _$dataRoomsAtom.reportWrite(value, super.dataRooms, () {
+      super.dataRooms = value;
     });
   }
 
-  final _$fetchRoomsAsyncAction = AsyncAction('_HomeController.fetchRooms');
+  final _$fetchAllRoomsAsyncAction =
+      AsyncAction('_HomeController.fetchAllRooms');
 
   @override
-  Future fetchRooms() {
-    return _$fetchRoomsAsyncAction.run(() => super.fetchRooms());
+  Future<void> fetchAllRooms() {
+    return _$fetchAllRoomsAsyncAction.run(() => super.fetchAllRooms());
   }
 
   @override
   String toString() {
     return '''
-listRooms: ${listRooms}
+dataRooms: ${dataRooms}
     ''';
   }
 }

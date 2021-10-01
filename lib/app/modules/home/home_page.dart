@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'package:invitee/app/modules/home/data/models/room_model.dart';
+import 'package:invitee/app/design_system/widget/card_room_widget/card_room_widget.dart';
+import 'package:invitee/app/design_system/widget/modal_filter_widget/modal_filter_widget.dart';
 import 'package:invitee/app/modules/home/home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,8 +15,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
+  // ignore: must_call_super
   void initState() {
-    controller.fetchRooms();
+    controller.fetchAllRooms();
   }
 
   @override
@@ -38,8 +39,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: height * 2, right: width * 6, left: width * 6),
+      body: Container(
+        padding: EdgeInsets.only(top: height * 2),
         child: Column(
           children: [
             Material(
@@ -47,8 +48,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               borderRadius: BorderRadius.all(Radius.circular(8)),
               child: Container(
                 height: height * 6,
+                width: width * 88,
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => showModalBottomSheet(
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(height * 2)
+                      )
+                    ),
+                    builder: (context) => ModalFilter()
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -69,17 +79,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             Observer(
               builder: (_) {
                 return Expanded(
-                  child: ListView.builder(
+                  child: ListView.separated(
                     shrinkWrap: true,
-                    itemCount: controller.listRooms.length,
+                    itemCount: controller.dataRooms.length,
+                    separatorBuilder: (context, index) => SizedBox(height: height * 3),
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.symmetric(vertical: height * 1.5),
-                            child: CardRoom(dataRoom: controller.listRooms[index],)
-                          ),
-                        ],
+                      return Container(
+                        padding: EdgeInsets.only(left: width * 6, right: width * 6, top: index == 0 ? height * 2 : 0 , bottom: index == controller.dataRooms.length - 1 ? height * 2 : 0),
+                        child: CardRoom(dataRoom: controller.dataRooms[index],)
                       );
                     },
                   ),
@@ -89,127 +96,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
           ],
         ),
       )
-    );
-  }
-}
-
-class CardRoom extends StatelessWidget {
-  const CardRoom({
-    Key? key,
-    required this.dataRoom,
-  }) : super(key: key);
-
-  final RoomModel dataRoom;
-
-  @override
-  Widget build(BuildContext context) {
-
-    final height = MediaQuery.of(context).size.height / 100;
-    final width = MediaQuery.of(context).size.width / 100;
-
-    return Material(
-      elevation: 2,
-      child: Column(
-        children: [
-          Container(
-            height: height * 20,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-              image: DecorationImage(
-                image: AssetImage('${dataRoom.image}'),
-                fit: BoxFit.fill
-              )
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: height * 1, horizontal: width * 1),
-            child: Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 1),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Sala de Reunião ${dataRoom.name}',
-                          style: GoogleFonts.nunito(
-                            fontWeight: FontWeight.bold,
-                            fontSize: height * 1.8
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Color(0XFF492E8D),
-                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: height * 0.3, horizontal: width * 8),
-                            child: Text(
-                              '${dataRoom.direction}',
-                              style: GoogleFonts.nunito(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: height * 1),
-                      child: Row(
-                        children: [
-                          Icon(Icons.location_on, color: Color(0XFF492E8D),),
-                          Text(
-                            '${dataRoom.address}',
-                            style: GoogleFonts.nunito(
-                              fontSize: height * 1.3
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: height * 2,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      reverse: true,
-                      itemCount: dataRoom.attributes!.length,
-                      itemBuilder: (_, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            border: Border(
-                              left: BorderSide(
-                                color: Colors.black,
-                                width: 1, 
-                              )
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 1),
-                            child: Text(
-                              '${dataRoom.attributes![index]}',
-                              style: GoogleFonts.nunito(
-                                color: Color(0XFF492E8D),
-                                fontWeight: FontWeight.w700,
-                                fontSize: width * 3
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }
