@@ -1,6 +1,6 @@
-# invitee
+# Invitee
 
-A new Flutter project.
+O APK para instalação está na pasta APK!
 
 ## Getting Started
 
