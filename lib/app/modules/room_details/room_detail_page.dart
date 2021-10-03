@@ -3,8 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:invitee/app/design_system/widget/card_details_date/card_details_date.dart';
 import 'package:invitee/app/design_system/widget/icon_atributes_widget/icon_atributes_widget.dart';
-
-import 'package:invitee/app/modules/home/data/models/date_model.dart';
 import 'package:invitee/app/modules/home/data/models/room_model.dart';
 
 class RoomDetailPage extends StatefulWidget {

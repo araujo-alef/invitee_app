@@ -36,7 +36,7 @@ abstract class _HomeController with Store implements IHomeController {
             bool hasWiFi = false;
             bool hasProjector = false;
 
-          filterRoom[i].attributes!.forEach((atribute) {
+          filterRoom[i].attributes.forEach((atribute) {
             if(atribute == 'Wi-Fi') {
               hasWiFi = true;
             }
@@ -48,13 +48,13 @@ abstract class _HomeController with Store implements IHomeController {
               dataRooms.add(filterRoom[i]);
           }
           } else if(wifi) {
-            filterRoom[i].attributes!.forEach((atribute) {
+            filterRoom[i].attributes.forEach((atribute) {
               if(atribute == 'Wi-Fi') {
                 dataRooms.add(filterRoom[i]);
               }
             });
           } else if (projetor) {
-            filterRoom[i].attributes!.forEach((atribute) {
+            filterRoom[i].attributes.forEach((atribute) {
               if(atribute == 'Projetor') {
                 dataRooms.add(filterRoom[i]);
               }
@@ -68,7 +68,7 @@ abstract class _HomeController with Store implements IHomeController {
           bool hasWiFi = false;
           bool hasProjector = false;
 
-          filterRoom[i].attributes!.forEach((atribute) {
+          filterRoom[i].attributes.forEach((atribute) {
             if(atribute == 'Wi-Fi') {
               hasWiFi = true;
             }
@@ -80,13 +80,13 @@ abstract class _HomeController with Store implements IHomeController {
               dataRooms.add(filterRoom[i]);
           } 
         } else if(wifi) {
-            filterRoom[i].attributes!.forEach((atribute) {
+            filterRoom[i].attributes.forEach((atribute) {
               if(atribute == 'Wi-Fi') {
                 dataRooms.add(filterRoom[i]);
               }
             });
         } else if (projetor) {
-          filterRoom[i].attributes!.forEach((atribute) {
+          filterRoom[i].attributes.forEach((atribute) {
             if(atribute == 'Projetor') {
               dataRooms.add(filterRoom[i]);
             }

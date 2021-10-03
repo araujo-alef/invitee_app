@@ -32,7 +32,7 @@ class RoomModel {
       'image': image,
       'maxAmountPeople': maxAmountPeople,
       'attributes': attributes,
-      'dates': dates?.map((x) => x.toMap())?.toList(),
+      'dates': dates.map((x) => x.toMap()).toList(),
     };
   }
 
