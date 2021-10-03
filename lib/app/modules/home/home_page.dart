@@ -30,7 +30,13 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       drawer: Drawer(),
       appBar: AppBar(
         backgroundColor: Color(0XFF492E8D),
-        title: Text('Invitee'),
+        title: Text(
+          'Invitee',
+          style: GoogleFonts.nunito(
+            fontSize: height * 2.5,
+            fontWeight: FontWeight.bold
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
