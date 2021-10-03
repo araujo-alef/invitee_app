@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:invitee/app/design_system/widget/chip_choice_widget/chip_choice_controller.dart';
 
 class ChipChoiceWidget extends StatelessWidget {
   final List<String> dataChips;
+  final Function setPeople;
 
-  const ChipChoiceWidget({Key? key, required this.dataChips}) : super(key: key);
+  const ChipChoiceWidget({
+    Key? key,
+    required this.dataChips,
+    required this.setPeople,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +34,10 @@ class ChipChoiceWidget extends StatelessWidget {
                     fontWeight: FontWeight.w700
                   ),
                 ),
-                selected: controller.value == index,
+                selected: controller.value == index + 1,
                 onSelected: (bool selected) {
                   controller.changeSelected(selected, index);
+                  setPeople(controller.value);
                 },
               );
             },

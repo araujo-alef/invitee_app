@@ -97,7 +97,7 @@ class CardRoom extends StatelessWidget {
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       reverse: true,
-                      itemCount: dataRoom.attributes!.length,
+                      itemCount: dataRoom.attributes.length,
                       itemBuilder: (_, index) {
                         return Container(
                           decoration: BoxDecoration(
@@ -111,7 +111,7 @@ class CardRoom extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: width * 1),
                             child: Text(
-                              '${dataRoom.attributes![index]}',
+                              '${dataRoom.attributes[index]}',
                               style: GoogleFonts.nunito(
                                 color: Color(0XFF492E8D),
                                 fontWeight: FontWeight.w700,

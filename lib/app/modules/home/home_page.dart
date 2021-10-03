@@ -47,7 +47,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               elevation: 2,
               borderRadius: BorderRadius.all(Radius.circular(8)),
               child: Container(
-                height: height * 6,
                 width: width * 88,
                 child: InkWell(
                   onTap: () => showModalBottomSheet(
@@ -57,20 +56,23 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                         top: Radius.circular(height * 2)
                       )
                     ),
-                    builder: (context) => ModalFilter()
+                    builder: (context) => ModalFilter(homeController: controller,)
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        'Encontre sua sala de reunião',
-                        style: GoogleFonts.nunito(
-                          fontSize: height * 1.6,
-                          fontWeight: FontWeight.w700
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: height * 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          'Encontre sua sala de reunião',
+                          style: GoogleFonts.nunito(
+                            fontSize: height * 1.6,
+                            fontWeight: FontWeight.w700
+                          ),
                         ),
-                      ),
-                      Icon(Icons.filter_list, color: Colors.black,)
-                    ],
+                        Icon(Icons.filter_list, color: Colors.black,)
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -84,9 +86,14 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     itemCount: controller.dataRooms.length,
                     separatorBuilder: (context, index) => SizedBox(height: height * 3),
                     itemBuilder: (context, index) {
-                      return Container(
+                      return controller.dataRooms.length == 0 ? 
+                        Text('Nenhuma sala encontrada',) :
+                        Container(
                         padding: EdgeInsets.only(left: width * 6, right: width * 6, top: index == 0 ? height * 2 : 0 , bottom: index == controller.dataRooms.length - 1 ? height * 2 : 0),
-                        child: CardRoom(dataRoom: controller.dataRooms[index],)
+                        child: InkWell(
+                          onTap: () => Modular.to.pushNamed('/room-detail/', arguments: controller.dataRooms[index]),
+                          child: CardRoom(dataRoom: controller.dataRooms[index],)
+                        )
                       );
                     },
                   ),
@@ -95,7 +102,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             ),
           ],
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => controller.fetchAllRooms(),
+        backgroundColor: Color(0XFF492E8D),
+        child: Icon(Icons.replay_outlined),
+      ),
     );
   }
 }

@@ -12,13 +12,13 @@ mixin _$HomeController on _HomeController, Store {
   final _$dataRoomsAtom = Atom(name: '_HomeController.dataRooms');
 
   @override
-  List<dynamic> get dataRooms {
+  List<RoomModel> get dataRooms {
     _$dataRoomsAtom.reportRead();
     return super.dataRooms;
   }
 
   @override
-  set dataRooms(List<dynamic> value) {
+  set dataRooms(List<RoomModel> value) {
     _$dataRoomsAtom.reportWrite(value, super.dataRooms, () {
       super.dataRooms = value;
     });
@@ -30,6 +30,15 @@ mixin _$HomeController on _HomeController, Store {
   @override
   Future<void> fetchAllRooms() {
     return _$fetchAllRoomsAsyncAction.run(() => super.fetchAllRooms());
+  }
+
+  final _$fetchFilterRoomsAsyncAction =
+      AsyncAction('_HomeController.fetchFilterRooms');
+
+  @override
+  Future fetchFilterRooms(bool wifi, bool projetor, int maxAmountPeople) {
+    return _$fetchFilterRoomsAsyncAction
+        .run(() => super.fetchFilterRooms(wifi, projetor, maxAmountPeople));
   }
 
   @override

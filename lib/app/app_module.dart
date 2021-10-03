@@ -1,5 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:invitee/app/modules/home/home_module.dart';
+import 'package:invitee/app/modules/reserved_rooms/reserved_rooms_module.dart';
+import 'package:invitee/app/modules/room_details/room_detail_module.dart';
 
 class AppModule extends Module {
   @override
@@ -7,5 +9,7 @@ class AppModule extends Module {
 
   List<ModularRoute> get routes => [
     ModuleRoute('/', module: HomeModule()),
+    ModuleRoute('/room-detail', module: RoomDetailModule()),
+    ModuleRoute('/reserved-room', module: ReservedRoomsModule()),
   ];
 }

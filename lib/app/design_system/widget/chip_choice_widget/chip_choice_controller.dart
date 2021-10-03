@@ -7,10 +7,10 @@ class ChipChoiceController = _ChipChoiceController with _$ChipChoiceController;
 abstract class _ChipChoiceController with Store {
 
   @observable
-  int value = 0;
+  late int value = 0;
 
   @action
   changeSelected(bool selected, index) {
-    value = selected ? index : null;
+    value = selected ? index + 1 : value;
   }
 }

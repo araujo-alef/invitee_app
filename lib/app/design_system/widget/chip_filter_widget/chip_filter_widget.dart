@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:invitee/app/design_system/widget/chip_filter_widget/chip_filter_controller.dart';
 
 class ChipFilterWidget extends StatelessWidget {
 
   final String title;
+  final Function setAtribute;
 
-  const ChipFilterWidget({Key? key, required this.title}) : super(key: key);
+  const ChipFilterWidget({
+    Key? key,
+    required this.title,
+    required this.setAtribute,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +32,7 @@ class ChipFilterWidget extends StatelessWidget {
           ),
           onSelected: (value) {
             controller.changeFilter(value);
+            setAtribute();
           },
           selected: controller.isActive,
     );

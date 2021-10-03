@@ -1,38 +1,28 @@
 import 'dart:convert';
 
-
+import 'package:invitee/app/modules/home/data/models/date_model.dart';
 
 class RoomModel {
-  final String? name;
-  final String? address;
-  final String? direction;
-  final String? image;
-  final List<String>? attributes;
+  final String name;
+  final String address;
+  final String direction;
+  final String image;
+  final int maxAmountPeople;
+  final List<String> attributes;
+  final List<DateModel> dates;
 
   RoomModel({
-    this.name,
-    this.address,
-    this.direction,
-    this.image,
-    this.attributes,
+    required this.name,
+    required this.address,
+    required this.direction,
+    required this.image,
+    required this. maxAmountPeople,
+    required this.attributes,
+    required this.dates,
   });
   
 
-  RoomModel copyWith({
-    String? name,
-    String? address,
-    String? direction,
-    String? image,
-    List<String>? attributes,
-  }) {
-    return RoomModel(
-      name: name ?? this.name,
-      address: address ?? this.address,
-      direction: direction ?? this.direction,
-      image: image ?? this.image,
-      attributes: attributes ?? this.attributes,
-    );
-  }
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -40,7 +30,9 @@ class RoomModel {
       'address': address,
       'direction': direction,
       'image': image,
+      'maxAmountPeople': maxAmountPeople,
       'attributes': attributes,
+      'dates': dates?.map((x) => x.toMap())?.toList(),
     };
   }
 
@@ -50,7 +42,9 @@ class RoomModel {
       address: map['address'],
       direction: map['direction'],
       image: map['image'],
+      maxAmountPeople: map['maxAmountPeople'],
       attributes: List<String>.from(map['attributes']),
+      dates: List<DateModel>.from(map['dates']?.map((x) => DateModel.fromMap(x))),
     );
   }
 
